@@ -1,0 +1,9 @@
+<svg
+    viewBox="0 0 1 1"
+    xmlns="http://www.w3.org/2000/svg"
+    preserveAspectRatio="xMidYMid meet">
+    
+    <circle r=".4" transform-origin="center" transform="translate(.5,.5)" opacity="1" fill="white"/>
+    <circle r=".4" transform-origin="center" transform="translate(.5,.5)" opacity="0.5" fill="red"/>
+    <circle r=".4" transform-origin="center" transform="translate(.5,.5)" stroke="red" fill="none" stroke-width=".1"/>
+</svg>
