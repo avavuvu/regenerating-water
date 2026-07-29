@@ -11,12 +11,11 @@ const config = {
 			// these options are set automatically — see below
 			pages: 'build',
 			assets: 'build',
-			fallback: "index.html",
 			precompress: false,
 			strict: true,
 		})
 	}
-	
+
 };
 
 export default config;
