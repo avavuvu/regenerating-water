@@ -13,3 +13,9 @@
 <div class="max-w-[500px] mx-auto">
 	{@render children()}
 </div>
+
+<style>
+    :global(body) {
+        background-color: black;
+    }
+</style>
