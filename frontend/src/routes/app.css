@@ -1,0 +1,10 @@
+:root {
+	--color-foreground: white;
+	--color-surface: teal;
+}
+
+body {
+	background: var(--color-surface);
+	color: var(--color-foreground);
+	overflow-y: hidden;
+}

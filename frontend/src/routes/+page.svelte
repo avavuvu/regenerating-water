@@ -1,0 +1,26 @@
+<main>
+    This is the Tarnuk demo!
+
+    <p>
+        <a href="/play/tarnuk">Click here to begin</a>
+    </p>
+
+    <p>
+        <a href="https://try.yarnspinner.dev/#script=d.vVhRb9s4En7Xr5jmDuhDHdd27FgO0hycbHf3gDZbJMEGi6JYUNJYYk1zBJKKo3vqz7j9e_0lB1KyLMtS3ASLe5RmSH78OPPNkIYbgWdwa5gy3vHxsXd-HmEomEL4Z0irlElOEt7B0dHFRd22RmYSVFzGLUYdKsRqlDeHNRNLWHOTwB9MZEtu4J4LwVY9MCwFkyCsmUEFhiDAmMu-HfSVMiUxB4ERBDlcv2ZqjWjgiikSuYRLxeNY92AuuCYJt5QZpoDJCH7hBD9z85-UGcXDZQ_wMRXkwFKmICQpMTScpLYruqV7IJiMMxajmyEVLMS-5x1flNQAAJyff81WafHjBkNSEZfxxYX37t07zzM1IitjyajafMMdUzJb_nlbLP_nYAhHH7Iwf62BS6Moytx_x9rxBVzj487Kl5a0gGQ8aqy6NXiCmTM4Ppn2fX8ym_mDiT8b-_7o1BMk4zMYjsf92WwymPjj2XQwHU99L0emzmA0GJ06uB_QvNbFMQAz26lh1Pe832SIkFMGTCn-gD1IFWpt6cr7_b7nnZ-vWFqi_yRY3o6-i7wWj4MMjuBoLji8reJjQ94VScNlhnUIVyQEhubennhj7brpBSRamFdM4SITIoewmAw0rTah7aI_t-Fn3A76nnefoCzJRFDIonyPzxYa60C7iGz1OUjlSRGMjsBysXsmlnd0pRCXjSVqlhfSdU1r4DbWDF9hkYhi2YdfSUR1olw-rujBuqyZirTTC6swy92AtEyLJZfxs6Kyto8uNttcDpI5hqNfONW5_MC1QdmYu_j5f-dDbLC0UVJg6mKjYT1IxKQ1QTdaiiHJ6NZQ2tTRylCPrtF4NDudDsYjfzapB5c_HY3H49nIPzk9GZWCNvQnJw7cPToyJK1tkoWJBWkp024J0IZSIOkqQ1ly6jwm7AFLtYueFVjbHXTWin2Pg2ye7ufo1aZMXyXEQ9yTgh3r89m0iP6w5Dgds9q26Qq4Bit42hFKsBC0rmTulZU3ZiAix2JE_3IkvQ-CkiONptFhYBDYbdUofB8EJbk_C1p3DrQLN0Za_3LoDZpMyc7Bypkbw4sxDSYt9hexVy677Yr-4WPA_IE7xPePqWBcwjpBtc3cmCyprhNBpTMWOVPLGRiCr8RdGelvI8Id9UcWNYPB0fg37WERBsF4VDR4wh59O0CBzMmXEzS3R25gzaRxvVdMP4C6PMG_CXc0DqIIHe4bFMh0F7VcGtrR1kM4t4ZN0hTqsaqOL3QerzzbKqgcjM2Q4l-VOMA0rBGWiKlV-SK3Cp2_ZkytOpqCaunOlmDf46DYTPdq2NySfZdgW0ewY6u1kmHZiNUVFph13rLbqzbpCl3CVSHMqYWVEpem3i9p22R3VrcWenagdTHU7nSQJP-p-nZnd9JS3qr_taiezgaDwU40D8fTTTUbDQeDGqcKtQGXTQtSwGBFK3Qc7dT_kFYLUoYF4nmdeoWui6p9h4M0zVqay-oO2Vq5mubDVFkMv9IaIkLdkdT4mKLiaFnaXmHL2vTAUlLMbG4MTjh277m4cWkWqs3_Tbniwl4jOudZOHuzZrmf5Qy3hsXySSy69GjMshnYLF7V5n6IxSdL1g3X2IOIa1ubivtygKG96qQ2L2nh8pqZFenUxuhWOotO2ulYszIVjL0QXK0WfbSdsRa0FlZfFWVxApq46NnQt1XHwlVERvdAOf23fLqLGi1gbRXZpk9oBfpHgFcH9ULoO-VoZTsBbbgQPUhIuERykBKmgYVhtsoEMxi5atGs-t0Ya5aahrgSU4roXo15udbWFnv6QrXr8qMCAm_c884bcB8sZrx4LqmSSDLRIrjV__o5-f5oMpyOZ7PZcFg_r-npaOjPTvzT4WQ6rd5HTor3kXssqrq7S2DkCtbCzg4RasMls3CbSmw7tQQhUDyKn6fFFfAuMvcdDlE5HDxVssqmqLo37DVju-bn82nRPdl5vWolorlwFx-dfgdpKR_j6mS8l1FTSGXkWekTLD-DIo_dxHcJk0t33rYiWzOX8SvP-xx8uTWkcoNCcBl_fht88a6_f_urfMz8pGiBWpNqPGvC_KPXeMb0dh463cxXmWKGlJvU5cNl9mhIOpvlD35CzWPp7HeKcvi3lBSiNN4iM5lChxMEC_puyDyLOEFFUMsw63WPgQ31zbzzBwY_cZkc_5553mf-5ZJpmxUSvn_77w3GKFEx424zcElRblXWvUudwdwJQdH5XnKlmMpkfByz79_-sl2hE7ogh7sEYS4EZzahLLmfFHvkGm5QI1NhAm-63obhDezAd6M_oghcE1qSA_eIS_v8efL5Lf_izvp_">
+            Click here for a link to the editor
+
+        </a>
+    </p>
+</main>
+
+<style>
+    main {
+        width: min(100%, 600px);
+        margin: 0 auto;
+        padding: 1em;
+    }
+
+    a {
+        text-decoration: underline;
+    }
+</style>
