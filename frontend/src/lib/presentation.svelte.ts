@@ -1,4 +1,5 @@
 import { parseCommand } from './yarn/command'
+import { player } from './player.svelte'
 
 export interface Recording {
 	name: string
@@ -13,7 +14,7 @@ export interface Presentation {
 	listen: boolean
 }
 
-// recordings live in static/<story>/<name>.opus
+
 export function createPresentation(story: string) {
 	const state: Presentation = $state({
 		recording: null,
@@ -26,6 +27,7 @@ export function createPresentation(story: string) {
 			return state
 		},
 		beginNode() {
+			if (state.recording) player.stop()
 			state.recording = null
 			state.map = false
 			state.listen = false
@@ -40,7 +42,9 @@ export function createPresentation(story: string) {
 			switch (name) {
 				case 'recording': {
 					const [file = '', label = ''] = args
-					state.recording = { name: file, label, url: `/${story}/${file}.opus`, finished: false }
+					const url = `/${story}/${file}`
+					state.recording = { name: file, label, url, finished: false }
+					player.play(url)
 					return true
 				}
 				case 'map':

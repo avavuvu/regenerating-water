@@ -5,6 +5,7 @@
 	import Audio from '@/Audio.svelte'
 	import Map from '@/Map.svelte'
 	import Line from '@/Line.svelte'
+	import { player } from '$lib/player.svelte'
 	import Debug from '$lib/Debug.svelte'
 	import { debug } from '$lib/debug-mode'
 	import type { PageProps } from './$types'
@@ -45,6 +46,9 @@
 		else if (screen.ending.kind === 'continue') advance()
 		else if (screen.ending.kind === 'options') advance(0)
 	}
+
+	$effect(() => player.onEnded(recordingDone))
+	$effect(() => player.onError(() => dialogue.finishRecording()))
 </script>
 
 {#if debug}
@@ -77,14 +81,7 @@
 
        	{#if presentation.recording}
       		<section class="recording">
-     			{#key presentation.recording.url}
-        				<Audio
-							audioSource={presentation.recording.url}
-							autoplay={true}
-							onAudioEnd={recordingDone}
-							onAudioError={() => dialogue.finishRecording()}
-						/>
-     			{/key}
+     			<Audio />
       		</section>
        	{/if}
         </div>
