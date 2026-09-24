@@ -50,6 +50,41 @@ export function createDialogue(story: string, source: string) {
 		state = next
 	}
 
+	// a node whose only content is a recording is a transition, not a place
+	function isRecordingNode(node: string): boolean {
+		const body = program.nodes[node].body
+		return body.some((s) => s.type === 'command' && s.text[0]?.type === 'text' && s.text[0].text.startsWith('recording')) &&
+			!body.some((s) => s.type === 'line')
+	}
+
+	// entry states of nodes already visited (past) and undone (future)
+	let past = $state.raw<State[]>([])
+	let future = $state.raw<State[]>([])
+	let nodeEntry: State = state
+
+	function restore(target: State) {
+		show(present(target, null), false)
+		nodeEntry = target
+	}
+
+	function back() {
+		const index = past.findLastIndex((s) => !isRecordingNode(s.node))
+		if (index === -1) return
+		const target = past[index]
+		future = [nodeEntry, ...past.slice(index + 1).reverse(), ...future]
+		past = past.slice(0, index)
+		restore(target)
+	}
+
+	function forward() {
+		const index = future.findIndex((s) => !isRecordingNode(s.node))
+		if (index === -1) return
+		const target = future[index]
+		past = [...past, nodeEntry, ...future.slice(0, index)]
+		future = future.slice(index + 1)
+		restore(target)
+	}
+
 	return {
 		story,
 		get state() {
@@ -76,14 +111,36 @@ export function createDialogue(story: string, source: string) {
 		finishRecording() {
 			presentation.finishRecording()
 		},
+		get canGoBack() {
+			return past.some((s) => !isRecordingNode(s.node))
+		},
+		get canGoForward() {
+			return future.some((s) => !isRecordingNode(s.node))
+		},
+		back,
+		forward,
 		advance(choice?: number) {
-			show(present(step(program, current.state, functions, choice), state.node), true)
+			const next = present(step(program, current.state, functions, choice), state.node)
+			if (next.node !== state.node) {
+				past = [...past, nodeEntry]
+				future = []
+				nodeEntry = next
+			}
+			show(next, true)
 		},
 		jump(scene: string) {
-			show(present(start(program, scene, functions, state.variables), null), false)
+			const next = present(start(program, scene, functions, state.variables), null)
+			if (next.node !== state.node) {
+				past = [...past, nodeEntry]
+				future = []
+			}
+			nodeEntry = next
+			show(next, false)
 		},
 		restore(saved: State) {
-			show(present(saved, null), false)
+			past = []
+			future = []
+			restore(saved)
 		}
 	}
 }

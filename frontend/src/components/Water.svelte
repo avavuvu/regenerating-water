@@ -4,36 +4,67 @@
 
 	const {
 		clear = false,
-		cols = 50,
-		rows = 50,
-		chars = ['  - ', '  # '],
-		fadeSeconds = 1.5
+		chars = [' -', ' #'],
+		fadeSeconds = 1.5,
+		speed = 0.2
 	}: {
 		clear?: boolean
-		cols?: number
-		rows?: number
 		chars?: string[]
 		fadeSeconds?: number
+		speed?: number
 	} = $props()
 
-	const CELL = 10
+	// a threshold per cell that survives resizes, so cells keep their fade order
+	const thresholds = new Map<string, number>()
+	function threshold(x: number, y: number): number {
+		const key = `${x},${y}`
+		let t = thresholds.get(key)
+		if (t === undefined) {
+			t = Math.random()
+			thresholds.set(key, t)
+		}
+		return t
+	}
 
 	const animate: Attachment<HTMLCanvasElement> = (canvas) => {
 		const context = canvas.getContext('2d')!
-		const dpr = window.devicePixelRatio || 1
-		const width = cols * CELL
-		const height = rows * CELL
+		const cellChars = Math.max(...chars.map((c) => c.length))
 
-		canvas.width = width * dpr
-		canvas.height = height * dpr
-		context.scale(dpr, dpr)
+		let cols = 0
+		let rows = 0
+		let cellWidth = 0
+		let cellHeight = 0
+		let width = 0
+		let height = 0
+		let font = ''
+
+		// canvas px must equal css px, so the glyphs are the page's glyphs
+		const fit = () => {
+			const style = getComputedStyle(canvas)
+			const dpr = window.devicePixelRatio || 1
+			font = `${style.fontSize} ${style.fontFamily}`
+			context.font = font
+			cellWidth = context.measureText('M'.repeat(cellChars)).width
+			cellHeight = parseFloat(style.lineHeight) || parseFloat(style.fontSize) * 1.2
+
+			width = canvas.clientWidth
+			height = canvas.clientHeight
+			cols = Math.max(1, Math.floor(width / cellWidth))
+			rows = Math.max(1, Math.floor(height / cellHeight))
+
+			canvas.width = Math.round(width * dpr)
+			canvas.height = Math.round(height * dpr)
+			context.setTransform(dpr, 0, 0, dpr, 0, 0)
+		}
+
+		fit()
+		const observer = new ResizeObserver(fit)
+		observer.observe(canvas)
 
 		const start = performance.now()
 		let last = start
 		// untracked: a change of `clear` must not re-run the attachment
 		let fadeAmount = untrack(() => clear) ? 1 : 0
-
-		const thresholds = Float32Array.from({ length: cols * rows }, () => Math.random())
 
 		let raf: number
 
@@ -50,18 +81,18 @@
 
 			if (fadeAmount < 1) {
 				context.fillStyle = getComputedStyle(canvas).color
-				context.font = `${CELL * 0.9}px "Times New Roman", serif`
+				context.font = font
 				context.textBaseline = 'top'
 
 				for (let y = 0; y < rows; y++) {
 					for (let x = 0; x < cols; x++) {
-						if (thresholds[y * cols + x] <= fadeAmount) continue
+						if (threshold(x, y) <= fadeAmount) continue
 
 						const dist = Math.sqrt(x * x + y * y)
 						const phase = Math.abs(
-							Math.floor(time / 2 - dist * 0.09 + (Math.sin(x) + Math.sin(y)) * 0.2)
+							Math.floor(time * speed - dist * 0.09 + (Math.sin(x) + Math.sin(y)) * 0.2)
 						)
-						context.fillText(chars[phase % chars.length], x * CELL, y * CELL)
+						context.fillText(chars[phase % chars.length], x * cellWidth, y * cellHeight)
 					}
 				}
 			}
@@ -70,7 +101,10 @@
 		}
 
 		raf = requestAnimationFrame(draw)
-		return () => cancelAnimationFrame(raf)
+		return () => {
+			cancelAnimationFrame(raf)
+			observer.disconnect()
+		}
 	}
 </script>
 
@@ -80,7 +114,9 @@
 	canvas {
 		display: block;
 		width: 100%;
-		height: auto;
+		height: 100%;
 		min-height: 4rem;
+		line-height: 0.75;
+		font-size: 0.75em;
 	}
 </style>

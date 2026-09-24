@@ -32,6 +32,7 @@ export function createPresentation(story: string) {
 			state.map = false
 			state.listen = false
 		},
+
 		finishRecording() {
 			if (state.recording) state.recording.finished = true
 		},

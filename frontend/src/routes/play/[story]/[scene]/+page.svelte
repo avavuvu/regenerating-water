@@ -29,11 +29,25 @@
 		return Number.isFinite(lat) && Number.isFinite(long) ? [lat, long] : null
 	})
 
-	function advance(choice?: number) {
-		dialogue.advance(choice)
+	function sync() {
 		if (dialogue.scene !== params.scene) {
 			goto(resolve('/play/[story]/[scene]', { story: params.story, scene: dialogue.scene }))
 		}
+	}
+
+	function advance(choice?: number) {
+		dialogue.advance(choice)
+		sync()
+	}
+
+	function back() {
+		dialogue.back()
+		sync()
+	}
+
+	function forward() {
+		dialogue.forward()
+		sync()
 	}
 
 	function recordingDone() {
@@ -58,9 +72,15 @@
 
 <main style:background-color={colour}>
 
+    {#if presentation.map && center}
+        <div class="map">
+            <Map {center} />
+        </div>
+    {:else}
     <div class="content">
         {#if !presentation.recording}
             <hgroup>
+                <h1>tarnuk</h1>
                 <p>{year}</p>
                 {#if center}
                     <div>
@@ -85,18 +105,13 @@
       		</section>
        	{/if}
         </div>
-
-        {#if presentation.map}
-            <div class="map">
-                {#if center}
-                    <Map {center} />
-                {:else}
-                    <div class="placeholder">map: node has no lat / long headers</div>
-                {/if}
-            </div>
-        {/if}
-
     </div>
+    {/if}
+
+    <nav class="history">
+        <button onclick={back} disabled={!dialogue.canGoBack} aria-label="back">&larr;</button>
+        <button onclick={forward} disabled={!dialogue.canGoForward} aria-label="forward">&rarr;</button>
+    </nav>
 
     <div class="controls">
         <Water clear={screen.ending.kind !== 'continue' && !dialogue.waiting} />
@@ -129,6 +144,25 @@
 {/if}
 
 <style>
+	.history {
+		display: flex;
+		justify-content: space-between;
+		padding: 0 0.5rem;
+
+		& button {
+			padding: 0rem 0.25rem;
+			font: inherit;
+			border: 1px solid currentColor;
+			background: none;
+			color: inherit;
+			cursor: pointer;
+
+			&:disabled {
+				opacity: 0.3;
+				cursor: default;
+			}
+		}
+	}
 	.skip {
 		position: fixed;
 		top: 0.5rem;
@@ -136,7 +170,6 @@
 		z-index: 10;
 		padding: 0.25rem 0.5rem;
 		font: inherit;
-		font-size: 0.75rem;
 		border: 1px dashed currentColor;
 		background: none;
 		color: inherit;
@@ -144,21 +177,32 @@
 	}
 	main {
 		min-height: 100vh;
-		width: min(100%, 500px);
+		width: min(100%, 40ch);
+		font-size: 1.5em;
 		margin: 0 auto;
 
 		transition: background-color 2s;
 		display: grid;
-		grid-template-rows: 60% auto;
+		grid-template-rows: 1fr auto 40%;
+
+		& .map {
+			min-height: 0;
+		}
+
+		& hgroup {
+		    font-size: 0.75em;
+		}
 
 		& .content {
-			& > *:not(.map) {
-				padding: 1em;
+			& > * {
+				padding: 2ch;
 			}
+
+
 
 			& .dialogue {
 			    & :global(p) {
-					margin-bottom: 1.2em;
+					margin-bottom: 1ch;
 				}
 			}
 		}
@@ -167,7 +211,6 @@
 
 		& .controls {
 			position: relative;
-
 
            	& .continue-button {
           		position: absolute;
@@ -181,10 +224,11 @@
           		inset: 0;
                 width: 100%;
                 height: 100%;
-                padding: 2em;
+                padding: 1ch;
                 display: flex;
                 flex-direction: column;
-                gap: 1em;
+                gap: .5em;
+                font-size: 1.5em;
 
                 & li {
                     color: var(--color-surface);
@@ -200,15 +244,7 @@
 	}
 
 
-	.map {
-		height: 20rem;
-		margin: 1rem 0;
-	}
-	.placeholder {
-		padding: 1rem;
-		border: 1px dashed currentColor;
-		opacity: 0.6;
-	}
+
 	.recording {
 		margin-top: 2rem;
 	}
