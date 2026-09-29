@@ -1,12 +1,13 @@
 title: Start
+display: screen
 ---
 <<declare $companion = "">>
 <<declare $weathering = "">>
 <<declare $screen = "">>
 
-A walk with Yalukit Willam, tap the water to begin.
+A journey led by N'arweet Professor Carolyn Briggs AM, Alison Soutar, Gio Fitzpatrick and Troy Innocent, exploring our connections to water, language and place.
 
-A journey led by N'arweet Carolyn Briggs, Alison Soutar and Gio Fitzpatrick, exploring our connections to water, language and place.
+Curated by Lucy Buxton.
 
 -> Start
     <<jump StartRecording>>
@@ -25,6 +26,7 @@ lat: -37.885998058948826
 long: 144.99505849707478
 year: 2026
 ---
+
 Let's begin at Billabong 2.
 
 Once you arrive, press play...
@@ -80,32 +82,12 @@ title: WalkToCreekRecording
 ---
 <<recording Tarnuk_Section_04 "Gio">>
 
-<<jump Listen>>
-===
-
-title: Listen
----
-Now it's time to walk. Hold your tarnuk and move towards the creek.
-
-Once you are walking, press play...
-
-<<listen>>
-
--> Play
-    <<jump ListenRecording>>
-===
-
-title: ListenRecording
----
-<<recording Tarnuk_Section_05 "Ali / N'arweet">>
-
 <<jump SecondStop>>
 ===
-
+year: 1853
 title: SecondStop
 lat: -37.88242967042895
-long: 144.98724449283632
-year: 1853
+long: 144.9872444928362
 ---
 We are now reaching the second stop on our journey.
 
@@ -119,11 +101,12 @@ Once you have arrived, press play...
 
 title: SecondStopRecording
 ---
-<<recording Tarnuk_Section_06 "Lucy">>
+<<recording Tarnuk_Section_05 "Ali / N'arweet">>
 
 <<jump CompanionChoice>>
 ===
 
+year: 1853
 title: CompanionChoice
 lat: -37.88242967042895
 long: 144.98724449283632
@@ -149,7 +132,7 @@ title: Ebb
 lat: -37.88242967042895
 long: 144.98724449283632
 ---
-<<set $screen = "#8eba80">>
+<<set $screen = "#cbf380">>
 
 Explain where you are going and persuade your watery companion to join you.
 
@@ -160,7 +143,7 @@ title: Flow
 lat: -37.88242967042895
 long: 144.98724449283632
 ---
-<<set $screen = "#fcbb42">>
+<<set $screen = "#ff9a02">>
 
 Allow your watery companion lead you to where it wants to go.
 
@@ -171,7 +154,7 @@ title: Return
 lat: -37.88242967042895
 long: 144.98724449283632
 ---
-<<set $screen = "#d4bdde">>
+<<set $screen = "#ff9a02">>
 
 Release your watery companion into the creek.
 
@@ -190,7 +173,7 @@ Carry that choice with you as we keep moving towards Naarm.
 
 title: ChoiceMadeRecording
 ---
-<<recording Tarnuk_Section_07 "Gio">>
+<<recording Tarnuk_Section_06 "Lucy">>
 
 <<jump AlongTheCreek>>
 ===
@@ -207,7 +190,7 @@ When you start walking, press play...
 
 title: AlongTheCreekRecording
 ---
-<<recording Tarnuk_Section_08 "Ali / N'arweet">>
+<<recording Tarnuk_Section_07 "Gio">>
 
 <<jump ThirdStop>>
 ===
@@ -217,11 +200,11 @@ lat: -37.879000
 long: 144.981472
 year: 2100
 ---
+<<map>>
+
 Let's rest here for a moment.
 
 Once you are comfortable, press play...
-
-<<map>>
 
 -> Play
     <<jump ThirdStopRecording>>
@@ -229,7 +212,7 @@ Once you are comfortable, press play...
 
 title: ThirdStopRecording
 ---
-<<recording Tarnuk_Section_09 "Lucy">>
+<<recording Tarnuk_Section_08 "Lucy">>
 
 <<jump WeatheringChoice>>
 ===
@@ -308,11 +291,11 @@ lat: -37.87882517499911
 long: 144.97621893861577
 year: 2036
 ---
+<<map>>
+
 We have reached our final destination.
 
 Once you are on the bridge, press play...
-
-<<map>>
 
 -> Play
     <<jump FinalStopRecording>>
