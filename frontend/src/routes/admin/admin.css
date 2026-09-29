@@ -1,0 +1,106 @@
+.admin {
+	font-size: 1rem;
+	line-height: 1.4;
+
+	& h1,
+	& h2,
+	& h3 {
+		font-weight: 700;
+	}
+
+	& a {
+		color: inherit;
+		text-decoration: underline;
+	}
+
+	& .button {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5ch;
+		padding: 0.25rem 0.75ch;
+		font: inherit;
+		color: inherit;
+		background: none;
+		border: 1px solid currentColor;
+		text-decoration: none;
+		cursor: pointer;
+		white-space: nowrap;
+
+		&:hover:not(:disabled) {
+			color: var(--color-surface);
+			background: var(--color-foreground);
+		}
+
+		&:disabled {
+			opacity: var(--opacity-disabled);
+			cursor: default;
+		}
+
+		&.primary {
+			color: var(--color-surface);
+			background: var(--color-foreground);
+
+			&:hover:not(:disabled) {
+				color: var(--color-foreground);
+				background: none;
+			}
+		}
+
+		&.danger:hover:not(:disabled) {
+			color: var(--color-surface);
+			background: var(--color-error);
+			border-color: var(--color-error);
+		}
+	}
+
+	& input[type='text'],
+	& input[type='password'],
+	& input[type='search'] {
+		padding: 0.25rem 0.75ch;
+		font: inherit;
+		color: inherit;
+		background: var(--color-inset);
+		border: 1px solid currentColor;
+
+		&::placeholder {
+			color: var(--color-muted);
+		}
+	}
+
+	& .panel {
+		border: 1px solid var(--color-line);
+	}
+
+	& .muted {
+		color: var(--color-muted);
+	}
+
+	& .error {
+		color: var(--color-error);
+	}
+
+	& .warning {
+		color: var(--color-warning);
+	}
+
+	& .ok {
+		color: var(--color-ok);
+	}
+
+	& table {
+		width: 100%;
+		border-collapse: collapse;
+
+		& th {
+			text-align: left;
+			font-weight: 700;
+		}
+
+		& th,
+		& td {
+			padding: 0.35rem 1ch;
+			border-bottom: 1px solid var(--color-line);
+			vertical-align: top;
+		}
+	}
+}

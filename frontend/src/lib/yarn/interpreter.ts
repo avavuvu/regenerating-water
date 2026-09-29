@@ -117,7 +117,6 @@ export type ScreenEnding =
 // leads to the next screen.
 //
 // a node header `display: lines` shows one line per screen.
-// the default, `display: screen`, shows the whole node at once.
 export interface Screen {
 	node: string
 	display: DisplayMode

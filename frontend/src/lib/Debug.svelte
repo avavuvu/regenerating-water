@@ -23,7 +23,7 @@
 		margin-top: 2rem;
 		padding: 0.5rem;
 		border: 1px dashed currentColor;
-		font-family: monospace;
+		font-family: var(--font-family);
 		font-size: 0.8rem;
 		opacity: 0.7;
 	}

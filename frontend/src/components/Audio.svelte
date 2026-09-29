@@ -2,6 +2,8 @@
 	import { Loader, Pause, Play } from 'lucide-svelte'
 	import { player } from '$lib/player.svelte'
 
+	const { canContinue = false }: { canContinue?: boolean } = $props()
+
 	const state = $derived(player.state)
 
 	const formatSeconds = (seconds: number) => {
@@ -21,7 +23,15 @@
 	)
 </script>
 
-<p>Listen...</p>
+{#if state.failed}
+	<p>The recording did not load.{canContinue ? ' Tap the water to continue.' : ''}</p>
+{:else if state.blocked}
+	<p>Press play to listen...</p>
+{:else if canContinue}
+	<p>Tap the water to continue.</p>
+{:else}
+	<p>Listen...</p>
+{/if}
 
 <div class="player">
 	<div class="progress" style:width={percentPlayed}></div>
@@ -55,9 +65,8 @@
 	.progress {
 		position: absolute;
 		inset: 0 auto 0 0;
-		border: 1px solid var(--color-foreground);
+		border: 1px solid var(--color-line);
 		pointer-events: none;
-		opacity: 0.3;
 	}
 	.toggle {
 		position: relative;
@@ -74,7 +83,7 @@
 	}
 	.toggle:disabled {
 		cursor: default;
-		opacity: 0.5;
+		opacity: var(--opacity-disabled);
 	}
 	.state {
 		display: inline-flex;

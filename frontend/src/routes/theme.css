@@ -1,0 +1,35 @@
+:root {
+	--font-family: "Ubuntu Mono", monospace;
+
+	--color-foreground: white;
+	--color-surface: teal;
+	--color-shadow: black;
+
+	--color-green: #cbf380;
+	--color-orange: #ff9a02;
+	--color-pink: #d4bdde;
+	--color-yellow: #fcbb42;
+	--color-marker: red;
+
+	--color-error: var(--color-pink);
+	--color-warning: var(--color-yellow);
+	--color-ok: var(--color-green);
+
+	--color-soft: color-mix(in srgb, var(--color-foreground) 70%, transparent);
+	--color-muted: color-mix(in srgb, var(--color-foreground) 60%, transparent);
+	--color-faint: color-mix(in srgb, var(--color-foreground) 45%, transparent);
+	--color-line: color-mix(in srgb, var(--color-foreground) 35%, transparent);
+	--color-selection: color-mix(in srgb, var(--color-foreground) 25%, transparent);
+	--color-hover: color-mix(in srgb, var(--color-foreground) 12%, transparent);
+	--color-active-line: color-mix(in srgb, var(--color-foreground) 6%, transparent);
+	--color-inset: color-mix(in srgb, var(--color-shadow) 15%, transparent);
+
+	--color-search-match: color-mix(in srgb, var(--color-yellow) 35%, transparent);
+	--color-search-selected: color-mix(in srgb, var(--color-orange) 60%, transparent);
+
+	--opacity-disabled: 0.4;
+
+	--layer-controls: 10;
+	--layer-flash: 20;
+	--layer-alert: 30;
+}

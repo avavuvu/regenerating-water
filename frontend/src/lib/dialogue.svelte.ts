@@ -1,6 +1,6 @@
 import { parseYarn } from './yarn/parse'
 import { screen, start, step, type Functions, type ScreenItem, type State } from './yarn/interpreter'
-import { createPresentation } from './presentation.svelte'
+import { createPresentation, publishedAssets, type StoryAssets } from './presentation.svelte'
 
 export type Dialogue = ReturnType<typeof createDialogue>
 
@@ -9,10 +9,16 @@ export interface TranscriptEntry {
 	item: ScreenItem
 }
 
-export function createDialogue(story: string, source: string) {
+export interface DialogueOptions {
+	assets?: StoryAssets
+	saved?: State | null
+	onSave?: (state: State) => void
+}
+
+export function createDialogue(story: string, source: string, options: DialogueOptions = {}) {
 	const program = parseYarn(source)
 	const functions: Functions = {}
-	const presentation = createPresentation(story)
+	const presentation = createPresentation(options.assets ?? publishedAssets(story))
 
 	function present(from: State, previousNode: string | null): State {
 		let s = from
@@ -38,9 +44,32 @@ export function createDialogue(story: string, source: string) {
 		return screen(program, s, functions).items.map((item, i) => ({ id: `${prefix}/${i}`, item }))
 	}
 
-	let state = $state.raw(present(start(program, 'Start', functions), null))
+	function isValidSave(saved: State | null | undefined): saved is State {
+		return (
+			!!saved &&
+			typeof saved.node === 'string' &&
+			!!program.nodes[saved.node] &&
+			Array.isArray(saved.path) &&
+			typeof saved.variables === 'object' &&
+			typeof saved.visited === 'object'
+		)
+	}
 
-	let transcript = $state.raw(entriesFor(state))
+	function initialise(): { entry: State; shown: State } {
+		if (isValidSave(options.saved)) {
+			try {
+				return { entry: options.saved, shown: present(options.saved, null) }
+			} catch {}
+		}
+		const fresh = present(start(program, 'Start', functions), null)
+		return { entry: fresh, shown: fresh }
+	}
+
+	const initial = initialise()
+
+	let state = $state.raw(initial.shown)
+
+	let transcript = $state.raw(entriesFor(initial.shown))
 
 	const current = $derived(screen(program, state, functions))
 
@@ -52,6 +81,7 @@ export function createDialogue(story: string, source: string) {
 
 	// a node whose only content is a recording is a transition, not a place
 	function isRecordingNode(node: string): boolean {
+		if (!program.nodes[node]) return false
 		const body = program.nodes[node].body
 		return body.some((s) => s.type === 'command' && s.text[0]?.type === 'text' && s.text[0].text.startsWith('recording')) &&
 			!body.some((s) => s.type === 'line')
@@ -60,12 +90,18 @@ export function createDialogue(story: string, source: string) {
 	// entry states of nodes already visited (past) and undone (future)
 	let past = $state.raw<State[]>([])
 	let future = $state.raw<State[]>([])
-	let nodeEntry: State = state
+	let nodeEntry: State = initial.entry
+
+	function enter(entry: State) {
+		nodeEntry = entry
+		if (!isRecordingNode(entry.node)) options.onSave?.(entry)
+	}
 
 	function restore(target: State) {
 		show(present(target, null), false)
-		nodeEntry = target
+		enter(target)
 	}
+
 
 	function back() {
 		const index = past.findLastIndex((s) => !isRecordingNode(s.node))
@@ -96,6 +132,12 @@ export function createDialogue(story: string, source: string) {
 		get headers() {
 			return program.nodes[state.node].headers
 		},
+		hasScene(scene: string) {
+			return !!program.nodes[scene]
+		},
+		isRecordingScene(scene: string) {
+			return isRecordingNode(scene)
+		},
 		get screen() {
 			return current
 		},
@@ -124,7 +166,7 @@ export function createDialogue(story: string, source: string) {
 			if (next.node !== state.node) {
 				past = [...past, nodeEntry]
 				future = []
-				nodeEntry = next
+				enter(next)
 			}
 			show(next, true)
 		},
@@ -134,7 +176,7 @@ export function createDialogue(story: string, source: string) {
 				past = [...past, nodeEntry]
 				future = []
 			}
-			nodeEntry = next
+			enter(next)
 			show(next, false)
 		},
 		restore(saved: State) {

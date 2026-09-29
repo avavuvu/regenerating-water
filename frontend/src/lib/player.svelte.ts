@@ -2,6 +2,8 @@ export interface PlayerState {
 	url: string | null
 	playing: boolean
 	loaded: boolean
+	blocked: boolean
+	failed: boolean
 	currentTime: number
 	duration: number
 }
@@ -10,6 +12,8 @@ const state: PlayerState = $state({
 	url: null,
 	playing: false,
 	loaded: false,
+	blocked: false,
+	failed: false,
 	currentTime: 0,
 	duration: 0
 })
@@ -32,6 +36,7 @@ function audio(): HTMLAudioElement {
 	})
 	a.addEventListener('play', () => {
 		state.playing = true
+		state.blocked = false
 	})
 	a.addEventListener('pause', () => {
 		state.playing = false
@@ -41,14 +46,19 @@ function audio(): HTMLAudioElement {
 		endedListeners.forEach((fn) => fn())
 	})
 	a.addEventListener('error', () => {
+		if (!a.getAttribute('src')) return
+		state.playing = false
+		state.failed = true
 		errorListeners.forEach((fn) => fn())
 	})
 	element = a
 	return a
 }
 
-function extension(a: HTMLAudioElement): string {
-	return a.canPlayType('audio/ogg; codecs=opus') ? 'opus' : 'm4a'
+function start(a: HTMLAudioElement) {
+	a.play().catch((error: unknown) => {
+		if (error instanceof DOMException && error.name === 'NotAllowedError') state.blocked = true
+	})
 }
 
 // one audio element for the whole app. play() must run synchronously
@@ -63,15 +73,17 @@ export const player = {
 		if (state.url !== url) {
 			state.url = url
 			state.loaded = false
+			state.failed = false
+			state.blocked = false
 			state.currentTime = 0
 			state.duration = 0
-			a.src = `${url}.${extension(a)}`
+			a.src = url
 		}
-		a.play().catch(() => {})
+		start(a)
 	},
 	toggle() {
 		const a = audio()
-		if (a.paused) a.play().catch(() => {})
+		if (a.paused) start(a)
 		else a.pause()
 	},
 	stop() {
@@ -81,6 +93,8 @@ export const player = {
 		element.load()
 		state.url = null
 		state.loaded = false
+		state.failed = false
+		state.blocked = false
 		state.currentTime = 0
 		state.duration = 0
 	},

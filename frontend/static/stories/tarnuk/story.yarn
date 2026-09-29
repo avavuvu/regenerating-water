@@ -1,0 +1,351 @@
+title: Start
+display: screen
+---
+<<declare $companion = "">>
+<<declare $weathering = "">>
+<<declare $screen = "">>
+
+A journey led by N'arweet Professor Carolyn Briggs AM, Alison Soutar, Gio Fitzpatrick and Troy Innocent, exploring our connections to water, language and place.
+
+Curated by Lucy Buxton.
+
+-> Start
+    <<jump StartRecording>>
+===
+
+title: StartRecording
+---
+<<recording Tarnuk_Section_01 "Lucy's introduction">>
+
+<<jump Billabong2>>
+===
+
+title: Billabong2
+lat: -37.885998058948826
+long: 144.99505849707478
+year: 2026
+---
+<<map>>
+
+Let's begin at Billabong 2.
+
+Once you arrive, press play...
+
+-> Play
+    <<jump Billabong2Recording>>
+===
+
+title: Billabong2Recording
+---
+<<recording Tarnuk_Section_02 "Ali / N'arweet">>
+
+<<jump CollectWater>>
+===
+
+title: CollectWater
+lat: -37.885998058948826
+long: 144.99505849707478
+---
+Carefully collect some water with your tarnuk.
+
+When you are ready, press play...
+
+-> Play
+    <<jump CollectWaterRecording>>
+===
+
+title: CollectWaterRecording
+---
+<<recording Tarnuk_Section_03 "Lucy">>
+
+<<jump WalkToCreek>>
+===
+
+title: WalkToCreek
+lat: -37.885998058948826
+long: 144.99505849707478
+---
+<<map>>
+
+Now it's time to walk. Hold your tarnuk and move towards the creek.
+
+Once you are walking, press play...
+
+-> Play
+    <<jump WalkToCreekRecording>>
+===
+
+title: WalkToCreekRecording
+---
+<<recording Tarnuk_Section_04 "Gio">>
+
+<<jump SecondStop>>
+===
+
+title: SecondStop
+lat: -37.882871
+long: 144.987296
+year: 1853
+---
+<<map>>
+
+We are now reaching the second stop on our journey.
+
+Once you have arrived, press play...
+
+-> Play
+    <<jump SecondStopRecording>>
+===
+
+title: SecondStopRecording
+---
+<<recording Tarnuk_Section_05 "Ali / N'arweet">>
+
+<<jump CompanionChoice>>
+===
+
+title: CompanionChoice
+lat: -37.882871
+long: 144.987296
+year: 1853
+---
+Your watery companion is refusing to flow with you!
+
+What do you do?
+
+-> Ebb
+    <<set $companion = "ebb">>
+    <<jump Ebb>>
+
+-> Flow
+    <<set $companion = "flow">>
+    <<jump Flow>>
+
+-> Return
+    <<set $companion = "return">>
+    <<jump Return>>
+===
+
+title: Ebb
+lat: -37.882871
+long: 144.987296
+---
+<<set $screen = "#cbf380">>
+<<flash green>>
+
+Explain where you are going and persuade your watery companion to join you.
+
+<<jump ChoiceMade>>
+===
+
+title: Flow
+lat: -37.882871
+long: 144.987296
+---
+<<set $screen = "#ff9a02">>
+<<flash orange>>
+
+Allow your watery companion to lead you to where it wants to go.
+
+<<jump ChoiceMade>>
+===
+
+title: Return
+lat: -37.882871
+long: 144.987296
+---
+<<set $screen = "#d4bdde">>
+<<flash pink>>
+
+Release your watery companion into the creek.
+
+<<jump ChoiceMade>>
+===
+
+title: ChoiceMade
+---
+You have made your choice!
+
+Carry that choice with you as we keep moving towards Naarm.
+
+-> Play
+    <<jump ChoiceMadeRecording>>
+===
+
+title: ChoiceMadeRecording
+---
+<<recording Tarnuk_Section_06 "Lucy">>
+
+<<jump AlongTheCreek>>
+===
+
+title: AlongTheCreek
+---
+Let's continue our journey along the creek, towards our third stopping point.
+
+When you start walking, press play...
+
+-> Play
+    <<jump AlongTheCreekRecording>>
+===
+
+title: AlongTheCreekRecording
+---
+<<recording Tarnuk_Section_07 "Gio">>
+
+<<jump ThirdStop>>
+===
+
+title: ThirdStop
+lat: -37.879000
+long: 144.981472
+year: 2100
+---
+<<map>>
+
+Let's rest here for a moment.
+
+Once you are comfortable, press play...
+
+-> Play
+    <<jump ThirdStopRecording>>
+===
+
+title: ThirdStopRecording
+---
+<<recording Tarnuk_Section_08 "Ali / N'arweet">>
+
+<<jump WeatheringChoice>>
+===
+
+title: WeatheringChoice
+lat: -37.879000
+long: 144.981472
+---
+How does your watery companion experience weathering?
+
+-> Evaporate
+    <<set $weathering = "evaporate">>
+    <<jump Evaporate>>
+
+-> Filter
+    <<set $weathering = "filter">>
+    <<jump Filter>>
+
+-> Stagnate
+    <<set $weathering = "stagnate">>
+    <<jump Stagnate>>
+===
+
+title: Evaporate
+lat: -37.879000
+long: 144.981472
+---
+<<set $screen = "#8eba80">>
+<<flash green>>
+
+Rise, disperse and become part of the atmosphere.
+
+<<jump WalkToNaarm>>
+===
+
+title: Filter
+lat: -37.879000
+long: 144.981472
+---
+<<set $screen = "#fcbb42">>
+<<flash orange>>
+
+Move slowly through soil, plants and roots, releasing some of what you carry.
+
+<<jump WalkToNaarm>>
+===
+
+title: Stagnate
+lat: -37.879000
+long: 144.981472
+---
+<<set $screen = "#d4bdde">>
+<<flash pink>>
+
+Remain still, holding what has accumulated within you.
+
+<<jump WalkToNaarm>>
+===
+
+title: WalkToNaarm
+---
+Let's keep walking towards Naarm.
+
+When you start walking, press play...
+
+-> Play
+    <<jump WalkToNaarmRecording>>
+===
+
+title: WalkToNaarmRecording
+---
+<<recording Tarnuk_Section_09 "Lucy + Gio + Lucy">>
+
+<<jump FinalStop>>
+===
+
+title: FinalStop
+lat: -37.87882517499911
+long: 144.97621893861577
+year: 2036
+---
+<<map>>
+
+We have reached our final destination.
+
+Once you are on the bridge, press play...
+
+-> Play
+    <<jump FinalStopRecording>>
+===
+
+title: FinalStopRecording
+---
+<<recording Tarnuk_Section_10 "Ali / N'arweet">>
+
+<<jump ReleaseCompanion>>
+===
+
+title: ReleaseCompanion
+lat: -37.87882517499911
+long: 144.97621893861577
+---
+Release your watery companion!
+
+-> Play
+    <<jump End>>
+===
+
+title: End
+display: screen
+---
+Thank you for playing!
+
+[b]Storytelling[/b]
+N’arweet Professor Carolyn Briggs AM
+Gio Fitzpatrick
+Alison Soutar
+
+[b]Curator[/b]
+Lucy Buxton
+
+[b]Play Design[/b]
+Troy Innocent
+future play lab.
+
+[b]Audio recording[/b]
+Troy Innocent
+
+[b]Web design[/b]
+Ava Dinh-Vu
+
+[i]Based on ‘Regenerating a Body of Water: A Walk with Birrarung-ga’ created by The Alliance for Praxis Research + N'arweet Carolyn Briggs + Troy Innocent for Melbourne Design Week 2023[/i]
+
+<<recording Tarnuk_Section_11 "Lucy">>
+===
